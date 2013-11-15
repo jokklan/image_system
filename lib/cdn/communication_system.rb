@@ -60,5 +60,17 @@ module CDN
       options
     end
 
+=======
+
+    class << self
+
+      private
+
+      def set_api_client
+        @cdn ||= CDNConnect::APIClient.new(:app_host => CDN_APP_HOST, :api_key => CDN_API_KEY)
+      end
+
+    end
+>>>>>>> Test setup working
   end
 end
