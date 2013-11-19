@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
@@ -38,6 +37,14 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # Use symbols as tags for examples
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  # Run with focus filter
+  config.filter_run focus: true
+  config.filter_run_excluding skip: true
+  config.run_all_when_everything_filtered = true
 
   # Include factory girl syntax methods so you can write create(:article), or build(:profile)
   config.include FactoryGirl::Syntax::Methods
