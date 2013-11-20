@@ -1,3 +1,5 @@
+require 'cdn/communication_system'
+
 module ImageSystem
   class Engine < ::Rails::Engine
     engine_name "white_album_image_system"
