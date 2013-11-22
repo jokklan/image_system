@@ -16,21 +16,58 @@ describe CDN::CommunicationSystem do
       @uuid = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
     end
 
-    it "should receive an file and upload it to cdn" do
-
-      res = CDN::CommunicationSystem.upload(@uuid, source_file_path: @file_path, queue_processing: false)
+    it "receives a file and uploads it to cdn" do
+      res = CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: @file_path, queue_processing: false)
       res.should eq(true)
     end
 
-    it "should return an error message if uuid is nil" do
-
-      expect { CDN::CommunicationSystem.upload(nil, source_file_path: @file_path, queue_processing: false) }.to raise_error(ArgumentError,"uuid is not set")
+    it "returns an error message if uuid is nil" do
+      expect { CDN::CommunicationSystem.upload(uuid: nil, source_file_path: @file_path, queue_processing: false) }.to raise_error(ArgumentError,"uuid is not set")
     end
 
-    it "should return an error message if source_file_path is not set" do
-
-      expect { CDN::CommunicationSystem.upload(@uuid, source_file_path: nil, queue_processing: false) }.to raise_error(ArgumentError,"source file(s) required")
+    it "returns an error message if source_file_path is not set" do
+      expect { CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: nil, queue_processing: false) }.to raise_error(ArgumentError,"source file(s) required")
     end
+
+    it "returns an error message for missing uuid if no arguments are set" do
+      expect { CDN::CommunicationSystem.upload() }.to raise_error(ArgumentError, "uuid is not set")
+    end
+  end
+
+  describe "#download" do
+
+    before(:all) do
+      @uuid = "1"
+    end
+
+    it "returns a string with the link to an image given it's uuid" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid)
+      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.jpg")
+    end
+
+    it "returns an error message if uuid is nil" do
+      expect { CDN::CommunicationSystem.download(uuid: nil) }.to raise_error(ArgumentError, "uuid is not set")
+    end
+
+    it "returns an error message if no arguments are given" do
+      expect { CDN::CommunicationSystem.download() }.to raise_error(ArgumentError, "uuid is not set")
+    end
+
+    it "returns a image of a certain width if specified" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, width: 100)
+      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.w100.jpg")
+    end
+
+    it "returns a image of a certain height if specified" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, height: 100)
+      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.h100.jpg")
+    end
+
+    it "returns a image of a certain height and width if both are specified" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
+      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.w320.h640.jpg")
+    end
+
   end
 
 end
