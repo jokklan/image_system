@@ -5,6 +5,7 @@ module CDN
 
     CDN_APP_HOST = "benjamin.cdnconnect.com"
     CDN_API_KEY  = "1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ"
+    CDN_DEFAULT_JPEG_QUALITY = 95
 
     def self.upload(options = {})
       uuid = options.delete(:uuid)
@@ -23,12 +24,16 @@ module CDN
     def self.download(options = {})
       uuid = options.delete(:uuid)
       raise ArgumentError.new("uuid is not set") if uuid.blank?
+      options = default_download_options.merge(options)
 
       name = "#{uuid}"
       name = name + ".w#{options[:width]}" if options[:width]
       name = name + ".h#{options[:height]}" if options[:height]
 
-      "http://#{CDN_APP_HOST}/#{name}.jpg"
+      url = "http://#{CDN_APP_HOST}/#{name}.jpg"
+
+      url = url + "?q=#{options[:quality]}" if options[:quality]
+      url
     end
 
     private
@@ -38,7 +43,11 @@ module CDN
     end
 
     def self.default_upload_options
-      {destination_path: '/'}
+      { destination_path: '/' }
+    end
+
+    def self.default_download_options
+      { width: nil, height: nil, quality: CDN_DEFAULT_JPEG_QUALITY }
     end
 
     def self.set_upload_options(uuid, options)
@@ -46,5 +55,11 @@ module CDN
       default_upload_options.merge(options)
     end
 
+    def self.set_download_options(uuid, options)
+      options = default_download_options.merge(options)
+      options[:width] = ".w#{options[:width]}" unless options[:width].blank?
+      options[:height] = ".w#{options[:height]}" unless options[:height].blank?
+      options
+    end
   end
 end

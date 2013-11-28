@@ -16,7 +16,7 @@ describe CDN::CommunicationSystem do
       @uuid = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
     end
 
-    it "receives a file and uploads it to cdn" do
+    it "receives a file and uploads it to cdn", :vcr do
       res = CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: @file_path, queue_processing: false)
       res.should eq(true)
     end
@@ -42,7 +42,7 @@ describe CDN::CommunicationSystem do
 
     it "returns a string with the link to an image given it's uuid" do
       res = CDN::CommunicationSystem.download(uuid: @uuid)
-      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.jpg")
+      res.should include("#{@uuid}.jpg")
     end
 
     it "returns an error message if uuid is nil" do
@@ -53,19 +53,30 @@ describe CDN::CommunicationSystem do
       expect { CDN::CommunicationSystem.download() }.to raise_error(ArgumentError, "uuid is not set")
     end
 
-    it "returns a image of a certain width if specified" do
+    it "returns an image of a certain width if specified" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, width: 100)
-      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.w100.jpg")
+      res.should include("w100")
     end
 
-    it "returns a image of a certain height if specified" do
-      res = CDN::CommunicationSystem.download(uuid: @uuid, height: 100)
-      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.h100.jpg")
+    it "returns an image of a certain height if specified" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, height: 50)
+      res.should include("h50")
     end
 
-    it "returns a image of a certain height and width if both are specified" do
+    it "returns an image of a certain height and width if both are specified" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
-      res.should eq("http://benjamin.cdnconnect.com/#{@uuid}.w320.h640.jpg")
+      res.should include("h640")
+      res.should include("w320")
+    end
+
+    it "returns an image with a certain quality if set" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320, quality: 10)
+      res.should include("q=10")
+    end
+
+    it "returns an image with a quality of 95 if nothing is set" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
+      res.should include("q=95")
     end
 
   end
