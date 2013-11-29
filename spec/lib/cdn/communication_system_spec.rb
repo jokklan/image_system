@@ -55,28 +55,38 @@ describe CDN::CommunicationSystem do
 
     it "returns an image of a certain width if specified" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, width: 100)
-      res.should include("w100")
+      res.should include("width=100")
     end
 
     it "returns an image of a certain height if specified" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, height: 50)
-      res.should include("h50")
+      res.should include("height=50")
     end
 
     it "returns an image of a certain height and width if both are specified" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
-      res.should include("h640")
-      res.should include("w320")
+      res.should include("height=640")
+      res.should include("width=320")
     end
 
     it "returns an image with a certain quality if set" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320, quality: 10)
-      res.should include("q=10")
+      res.should include("quality=10")
     end
 
     it "returns an image with a quality of 95 if nothing is set" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
-      res.should include("q=95")
+      res.should include("quality=95")
+    end
+
+    it "returns an image with the original aspect" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, aspect: :original)
+      res.should include("mode=max")
+    end
+
+     it "returns an image with the original aspect" do
+      res = CDN::CommunicationSystem.download(uuid: @uuid, aspect: :square)
+      res.should include("mode=crop")
     end
 
   end

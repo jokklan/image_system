@@ -1,4 +1,5 @@
 require 'cdnconnect_api'
+require 'hash_utils'
 
 module CDN
   module CommunicationSystem
@@ -24,15 +25,13 @@ module CDN
     def self.download(options = {})
       uuid = options.delete(:uuid)
       raise ArgumentError.new("uuid is not set") if uuid.blank?
+
       options = default_download_options.merge(options)
+      options = set_aspect_options(options)
+      params = HashUtils.to_url_params(options)
 
-      name = "#{uuid}"
-      name = name + ".w#{options[:width]}" if options[:width]
-      name = name + ".h#{options[:height]}" if options[:height]
-
-      url = "http://#{CDN_APP_HOST}/#{name}.jpg"
-
-      url = url + "?q=#{options[:quality]}" if options[:quality]
+      url = "http://#{CDN_APP_HOST}/#{uuid}.jpg"
+      url = url + "?#{params}" unless params.empty?
       url
     end
 
@@ -47,7 +46,7 @@ module CDN
     end
 
     def self.default_download_options
-      { width: nil, height: nil, quality: CDN_DEFAULT_JPEG_QUALITY }
+      { quality: CDN_DEFAULT_JPEG_QUALITY, aspect: :original }
     end
 
     def self.set_upload_options(uuid, options)
@@ -55,11 +54,11 @@ module CDN
       default_upload_options.merge(options)
     end
 
-    def self.set_download_options(uuid, options)
-      options = default_download_options.merge(options)
-      options[:width] = ".w#{options[:width]}" unless options[:width].blank?
-      options[:height] = ".w#{options[:height]}" unless options[:height].blank?
+    def self.set_aspect_options(options = default_download_options)
+      aspect = options.delete(:aspect)
+      options[:mode] = aspect == :original ?  "max" : "crop"
       options
     end
+
   end
 end
