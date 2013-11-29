@@ -84,7 +84,7 @@ describe CDN::CommunicationSystem do
       res.should include("mode=max")
     end
 
-     it "returns an image with the original aspect" do
+     it "returns an image with another aspect if not the original one" do
       res = CDN::CommunicationSystem.download(uuid: @uuid, aspect: :square)
       res.should include("mode=crop")
     end
