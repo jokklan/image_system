@@ -16,5 +16,12 @@ describe HashUtils do
       res.should include("andre=1")
       res.should include("johan=2")
     end
+
+    it "returns a string in the form of url params without the nil values of the hash" do
+      res = HashUtils.to_url_params({ andre: 1, johan: 2, rasmus: nil })
+      res.should include("andre=1")
+      res.should include("johan=2")
+      res.should_not include("rasmus=")
+    end
   end
 end
