@@ -1,5 +1,4 @@
 require 'cdnconnect_api'
-require 'hash_utils'
 
 module CDN
   module CommunicationSystem
@@ -27,8 +26,7 @@ module CDN
       raise ArgumentError.new("uuid is not set") if uuid.blank?
 
       options = default_download_options.merge(options)
-      options = set_aspect_options(options)
-      params = HashUtils.to_url_params(options)
+      params = set_aspect_options(options).to_param
 
       url = "http://#{CDN_APP_HOST}/#{uuid}.jpg"
       url = url + "?#{params}" unless params.empty?
@@ -60,17 +58,5 @@ module CDN
       options
     end
 
-=======
-
-    class << self
-
-      private
-
-      def set_api_client
-        @cdn ||= CDNConnect::APIClient.new(:app_host => CDN_APP_HOST, :api_key => CDN_API_KEY)
-      end
-
-    end
->>>>>>> Test setup working
   end
 end

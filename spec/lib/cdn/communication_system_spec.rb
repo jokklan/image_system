@@ -5,7 +5,7 @@ require 'uuidtools'
 
 describe CDN::CommunicationSystem do
 
-  describe "#upload" do
+  describe ".upload" do
 
     before(:all) do
       file_args = { filename: 'rails.png',
@@ -34,7 +34,7 @@ describe CDN::CommunicationSystem do
     end
   end
 
-  describe "#download" do
+  describe ".download" do
 
     before(:all) do
       @uuid = "1"
