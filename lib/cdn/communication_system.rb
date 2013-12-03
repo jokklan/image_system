@@ -1,4 +1,5 @@
 require 'cdnconnect_api'
+require 'exceptions/cdn_upload_exception'
 
 module CDN
   module CommunicationSystem
@@ -15,9 +16,12 @@ module CDN
       response = api_client.upload(options)
 
       # should look for the status from the message instead
-      return_files = response.data["results"]["files"]
-      if return_files.size == 1
-        true
+      begin
+        if response.data["results"]["files"].size == 1
+          true
+        end
+      rescue
+        raise Exceptions::CdnUploadException.new("failed to upload")
       end
     end
 

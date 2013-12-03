@@ -2,6 +2,8 @@
 require 'spec_helper'
 require 'cdn/communication_system'
 require 'uuidtools'
+require 'exceptions/cdn_upload_exception'
+require 'cdnconnect_api'
 
 describe CDN::CommunicationSystem do
 
@@ -31,6 +33,11 @@ describe CDN::CommunicationSystem do
 
     it "returns an error message for missing uuid if no arguments are set" do
       expect { CDN::CommunicationSystem.upload() }.to raise_error(ArgumentError, "uuid is not set")
+    end
+
+    it "returns an error message if the upload fails from cdn" do
+      CDNConnect::APIClient.any_instance.stub(:upload) { [] }
+      expect { CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: @file_path, queue_processing: false)}.to raise_error(Exceptions::CdnUploadException, "failed to upload")
     end
   end
 
