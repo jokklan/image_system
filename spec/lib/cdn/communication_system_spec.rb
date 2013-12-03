@@ -16,7 +16,7 @@ describe CDN::CommunicationSystem do
       @uuid = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
     end
 
-    it "receives a file and uploads it to cdn", :vcr do
+    it "receives a file and uploads it to cdn" do
       res = CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: @file_path, queue_processing: false)
       res.should eq(true)
     end
