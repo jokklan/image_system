@@ -28,7 +28,7 @@ module ImageSystem
 
         it "receives a file and uploads it to cdn" do
           res = CDN::CommunicationSystem.upload(uuid: @uuid_to_upload, source_file_path: @file_path, queue_processing: false)
-          res.should eq(true)
+          expect(res).to eq(true)
         end
 
         it "returns an error message if uuid is nil" do
@@ -54,7 +54,7 @@ module ImageSystem
 
         it "returns a string with the link to an image given it's uuid" do
           res = CDN::CommunicationSystem.download(uuid: @uuid)
-          res.should include("#{@uuid}.jpg")
+          expect(res).to include("#{@uuid}.jpg")
         end
 
         it "returns an error message if uuid is nil" do
@@ -67,38 +67,38 @@ module ImageSystem
 
         it "returns an image of a certain width if specified" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, width: 100)
-          res.should include("width=100")
+          expect(res).to include("width=100")
         end
 
         it "returns an image of a certain height if specified" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, height: 50)
-          res.should include("height=50")
+          expect(res).to include("height=50")
         end
 
         it "returns an image of a certain height and width if both are specified" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
-          res.should include("height=640")
-          res.should include("width=320")
+          expect(res).to include("height=640")
+          expect(res).to include("width=320")
         end
 
         it "returns an image with a certain quality if set" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320, quality: 10)
-          res.should include("quality=10")
+          expect(res).to include("quality=10")
         end
 
         it "returns an image with a quality of 95 if nothing is set" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320)
-          res.should include("quality=95")
+          expect(res).to include("quality=95")
         end
 
         it "returns an image with the original aspect" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, aspect: :original)
-          res.should include("mode=max")
+          expect(res).to include("mode=max")
         end
 
          it "returns an image with another aspect if not the original one" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, aspect: :square)
-          res.should include("mode=crop")
+          expect(res).to include("mode=crop")
         end
 
       end
@@ -116,7 +116,7 @@ module ImageSystem
 
         it "returns true when renaming an object is successful" do
           res = CDN::CommunicationSystem.rename(old_uuid: @old_uuid, new_uuid: @new_uuid )
-          res.should eq(true)
+          expect(res).to eq(true)
         end
 
         it "returns an exception if an object is not found" do
