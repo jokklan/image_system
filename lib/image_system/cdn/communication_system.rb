@@ -4,8 +4,6 @@ module ImageSystem
   module CDN
     module CommunicationSystem
 
-      CDN_APP_HOST = "benjamin.cdnconnect.com"
-      CDN_API_KEY  = "1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ"
       CDN_DEFAULT_JPEG_QUALITY = 95
 
       def self.upload(options = {})
@@ -32,15 +30,26 @@ module ImageSystem
         options = default_download_options.merge(options)
         params = set_aspect_options(options).to_param
 
-        url = "http://#{CDN_APP_HOST}/#{uuid}.jpg"
+        url = "http://#{CDN::ApiData::CDN_APP_HOST}/#{uuid}.jpg"
         url = url + "?#{params}" unless params.empty?
         url
+      end
+
+      def self.rename(options = {})
+        options[:path] = "/" + options.delete(:old_uuid) + ".jpg"
+        options[:new_name] = options.delete(:new_uuid) + ".jpg"
+        response = api_client.rename_object(options)
+        if response.status == 200
+          true
+        elsif response.status == 404
+          raise Exceptions::NotFoundException.new("Does not exist any image with that uuid")
+        end
       end
 
       private
 
       def self.api_client
-        @cdn ||= CDNConnect::APIClient.new(app_host: CDN_APP_HOST, api_key: CDN_API_KEY)
+        @cdn ||= CDNConnect::APIClient.new(app_host: CDN::ApiData::CDN_APP_HOST, api_key: CDN::ApiData::CDN_API_KEY )
       end
 
       def self.default_upload_options

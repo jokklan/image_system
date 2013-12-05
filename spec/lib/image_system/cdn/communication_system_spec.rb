@@ -1,23 +1,33 @@
 require 'spec_helper'
 require 'uuidtools'
+require 'cdnconnect_api'
 
 module ImageSystem
   module CDN
     describe CDN::CommunicationSystem do
 
-      describe ".upload" do
+      before(:all) do
 
-        before(:all) do
-          file_args = { filename: 'rails.png',
+        file_args = { filename: 'rails.png',
                         content_type: 'image/png',
                         tempfile: File.new("#{Rails.root}/public/images/test_image.jpg")
                       }
-          @file_path = ActionDispatch::Http::UploadedFile.new(file_args).path.to_s
-          @uuid = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
+
+        @file_path = ActionDispatch::Http::UploadedFile.new(file_args).path.to_s
+        @uuid = "1"
+
+        @cdn ||= CDNConnect::APIClient.new(app_host: CDN::ApiData::CDN_APP_HOST, api_key: CDN::ApiData::CDN_API_KEY)
+        @cdn.upload(source_file_path: @file_path, new_name: '{@uuid}.jpg', queue_processing: false, destination_path: '/')
+      end
+
+      describe ".upload" do
+
+        before(:all) do
+          @uuid_to_upload = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
         end
 
         it "receives a file and uploads it to cdn" do
-          res = CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: @file_path, queue_processing: false)
+          res = CDN::CommunicationSystem.upload(uuid: @uuid_to_upload, source_file_path: @file_path, queue_processing: false)
           res.should eq(true)
         end
 
@@ -26,7 +36,7 @@ module ImageSystem
         end
 
         it "returns an error message if source_file_path is not set" do
-          expect { CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: nil, queue_processing: false) }.to raise_error(ArgumentError,"source file(s) required")
+          expect { CDN::CommunicationSystem.upload(uuid: @uuid_to_upload, source_file_path: nil, queue_processing: false) }.to raise_error(ArgumentError,"source file(s) required")
         end
 
         it "returns an error message for missing uuid if no arguments are set" do
@@ -35,16 +45,12 @@ module ImageSystem
 
         it "returns an error message if the upload fails from cdn" do
           CDNConnect::APIClient.any_instance.stub(:upload) { [] }
-          expect { CDN::CommunicationSystem.upload(uuid: @uuid, source_file_path: @file_path, queue_processing: false)}.to raise_error(Exceptions::CdnUploadException, "failed to upload")
+          expect { CDN::CommunicationSystem.upload(uuid: @uuid_to_upload, source_file_path: @file_path, queue_processing: false)}.to raise_error(Exceptions::CdnUploadException, "failed to upload")
         end
 
       end
 
       describe ".download" do
-
-        before(:all) do
-          @uuid = "1"
-        end
 
         it "returns a string with the link to an image given it's uuid" do
           res = CDN::CommunicationSystem.download(uuid: @uuid)
@@ -93,6 +99,28 @@ module ImageSystem
          it "returns an image with another aspect if not the original one" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, aspect: :square)
           res.should include("mode=crop")
+        end
+
+      end
+
+      describe ".rename" do
+
+        before(:all) do
+          @old_uuid = "1"
+          @new_uuid = "new_uuid"
+        end
+
+        after(:each) do
+          @cdn.rename_object(path: '/new_uuid.jpg', new_name: '1.jpg')
+        end
+
+        it "returns true when renaming an object is successful" do
+          res = CDN::CommunicationSystem.rename(old_uuid: @old_uuid, new_uuid: @new_uuid )
+          res.should eq(true)
+        end
+
+        it "returns an exception if an object is not found" do
+          expect { CDN::CommunicationSystem.rename(old_uuid: "2", new_uuid: @new_uuid ) }.to raise_error(Exceptions::NotFoundException, "Does not exist any image with that uuid")
         end
 
       end
