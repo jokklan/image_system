@@ -44,7 +44,15 @@ module ImageSystem
         options[:new_name] = new_uuid + ".jpg"
         response = api_client.rename_object(options)
 
-        rename_error_handling(response.status)
+        error_handling(response.status)
+      end
+
+      def self.delete(options = {})
+        uuid = options.delete(:uuid)
+        raise ArgumentError.new("uuid is not set") if uuid.blank?
+
+        response = api_client.delete_object(path: "/#{uuid}.jpg")
+        error_handling(response.status)
       end
 
       private
@@ -83,7 +91,7 @@ module ImageSystem
         end
       end
 
-      def self.rename_error_handling(status)
+      def self.error_handling(status)
         if status == 200
           true
         elsif status == 404
