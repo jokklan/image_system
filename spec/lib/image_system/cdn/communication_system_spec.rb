@@ -17,7 +17,7 @@ module ImageSystem
         @uuid = "1"
 
         @cdn ||= CDNConnect::APIClient.new(app_host: CDN::ApiData::CDN_APP_HOST, api_key: CDN::ApiData::CDN_API_KEY)
-        @cdn.upload(source_file_path: @file_path, new_name: '{@uuid}.jpg', queue_processing: false, destination_path: '/')
+        res = @cdn.upload(source_file_path: @file_path, destination_file_name: "#{@uuid}.jpg", queue_processing: false, destination_path: '/')
       end
 
       describe ".upload" do
@@ -106,12 +106,15 @@ module ImageSystem
       describe ".rename" do
 
         before(:all) do
+          @already_existing_uuid = 'rename_test_already_exists_exception.jpg'
+          @cdn.upload(source_file_path: @file_path, destination_file_name: @already_existing_uuid, queue_processing: false, destination_path: '/')
+
           @old_uuid = "1"
           @new_uuid = "new_uuid"
         end
 
         after(:each) do
-          @cdn.rename_object(path: '/new_uuid.jpg', new_name: '1.jpg')
+          @cdn.rename_object(path: "/#{@new_uuid}.jpg", new_name: "#{@old_uuid}.jpg")
         end
 
         it "returns true when renaming an object is successful" do
@@ -121,6 +124,22 @@ module ImageSystem
 
         it "returns an exception if an object is not found" do
           expect { CDN::CommunicationSystem.rename(old_uuid: "2", new_uuid: @new_uuid ) }.to raise_error(Exceptions::NotFoundException, "Does not exist any image with that uuid")
+        end
+
+        it "returns an exception if there is an image with the same uuid as new uuid" do
+          expect { CDN::CommunicationSystem.rename(old_uuid: @old_uuid, new_uuid: @already_existing_uuid ) }.to raise_error(Exceptions::AlreadyExistsException, "There is an image with the same uuid as the new one")
+        end
+
+        it "returns an error if the old uuid is not provided" do
+          expect { CDN::CommunicationSystem.rename( new_uuid: @already_existing_uuid ) }.to raise_error(ArgumentError,"old uuid is not set")
+        end
+
+        it "returns an error if the old uuid is not provided" do
+          expect { CDN::CommunicationSystem.rename( old_uuid: @old_uuid ) }.to raise_error(ArgumentError,"new uuid is not set")
+        end
+
+        it "returns an error if the old uuid is the same as the new" do
+          expect { CDN::CommunicationSystem.rename( old_uuid: @old_uuid, new_uuid: @old_uuid) }.to raise_error(ArgumentError,"old uuid is the same as the new")
         end
 
       end

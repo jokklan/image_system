@@ -36,14 +36,15 @@ module ImageSystem
       end
 
       def self.rename(options = {})
-        options[:path] = "/" + options.delete(:old_uuid) + ".jpg"
-        options[:new_name] = options.delete(:new_uuid) + ".jpg"
+        uuid = options.delete(:old_uuid)
+        new_uuid = options.delete(:new_uuid)
+        rename_args_validation(uuid, new_uuid)
+
+        options[:path] = "/" + uuid + ".jpg"
+        options[:new_name] = new_uuid + ".jpg"
         response = api_client.rename_object(options)
-        if response.status == 200
-          true
-        elsif response.status == 404
-          raise Exceptions::NotFoundException.new("Does not exist any image with that uuid")
-        end
+
+        rename_error_handling(response.status)
       end
 
       private
@@ -69,6 +70,27 @@ module ImageSystem
         aspect = options.delete(:aspect)
         options[:mode] = aspect == :original ?  "max" : "crop"
         options
+      end
+
+      def self.rename_args_validation(uuid, new_uuid)
+
+        to_validate = [["uuid.blank?", "old uuid is not set"],
+                       ["new_uuid.blank?", "new uuid is not set"],
+                       ["uuid == new_uuid", "old uuid is the same as the new"]]
+
+        to_validate.each do |validation|
+          raise ArgumentError.new(validation.last) if eval(validation.first)
+        end
+      end
+
+      def self.rename_error_handling(status)
+        if status == 200
+          true
+        elsif status == 404
+          raise Exceptions::NotFoundException.new("Does not exist any image with that uuid")
+        elsif status == 400
+          raise Exceptions::AlreadyExistsException.new("There is an image with the same uuid as the new one")
+        end
       end
 
     end
