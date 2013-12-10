@@ -6,14 +6,18 @@ class Image
     self.uuid = args[:uuid]
   end
 
-  def new_record?
-  end
-
   def save
-    super_saved_is_called
+    super_save_is_called
   end
 
-  def super_saved_is_called
+  def destroy
+    super_destroy_is_called
+  end
+
+  def super_save_is_called
+  end
+
+  def super_destroy_is_called
   end
 
 end
