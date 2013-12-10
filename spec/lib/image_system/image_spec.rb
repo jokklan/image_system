@@ -85,7 +85,7 @@ module ImageSystem
 
       it  "does not delete an image if there is an error from the server" do
         Photo.any_instance.stub(:new_record?) { false }
-        CDN::CommunicationSystem.stub(:delete).and_raise(Exceptions::CdnUnknownException.new("failed to upload"))
+        CDN::CommunicationSystem.stub(:delete).and_raise(Exceptions::CdnUnknownException.new("cdn communication system failed"))
 
         p = Photo.new(uuid: UUIDTools::UUID.random_create.to_s.gsub(/\-/, ''))
 
@@ -95,6 +95,28 @@ module ImageSystem
         p.destroy
       end
 
+    end
+
+    describe "#url" do
+
+      it "returns an url to the image with the given uuid" do
+
+        Photo.any_instance.stub(:new_record?) { false }
+
+        p = Photo.new(uuid: UUIDTools::UUID.random_create.to_s.gsub(/\-/, ''))
+        CDN::CommunicationSystem.should_receive(:download)
+
+        p.url
+      end
+
+      it "returns an url to the image with the given uuid" do
+        Photo.any_instance.stub(:new_record?) { true }
+
+        p = Photo.new(uuid: UUIDTools::UUID.random_create.to_s.gsub(/\-/, ''))
+        CDN::CommunicationSystem.should_not_receive(:download)
+
+        p.url
+      end
     end
 
   end

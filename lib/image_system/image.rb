@@ -25,5 +25,9 @@ module ImageSystem
       end
     end
 
+    def url
+      self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid)
+    end
+
   end
 end
