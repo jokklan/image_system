@@ -98,6 +98,8 @@ module ImageSystem
           raise Exceptions::NotFoundException.new("Does not exist any image with that uuid")
         elsif status == 400
           raise Exceptions::AlreadyExistsException.new("There is an image with the same uuid as the new one")
+        else
+          raise Exceptions::CdnUnknownException.new("cdn communication system failed")
         end
       end
 

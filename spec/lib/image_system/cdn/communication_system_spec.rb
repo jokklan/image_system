@@ -163,7 +163,13 @@ module ImageSystem
 
         it "returns an error if the old uuid is the same as the new" do
           expect { CDN::CommunicationSystem.rename( old_uuid: @old_uuid,
-                                                    new_uuid: @old_uuid) }.to raise_error(ArgumentError,"old uuid is the same as the new")
+                                                    new_uuid: @old_uuid) }.to raise_error( ArgumentError,"old uuid is the same as the new")
+        end
+
+        it "returns an error if the renaming fails" do
+          CDNConnect::APIClient.any_instance.stub(:rename_object) { Response.new }
+          expect { CDN::CommunicationSystem.rename( old_uuid: @old_uuid,
+                                                    new_uuid: @new_uuid) }.to raise_error( Exceptions::CdnUnknownException, "cdn communication system failed" )
         end
 
       end
@@ -187,6 +193,11 @@ module ImageSystem
 
         it "does not delete if no uuid is given and returns an error" do
           expect { CDN::CommunicationSystem.delete() }.to raise_error(ArgumentError,"uuid is not set")
+        end
+
+        it "returns an error if the deleting operation fails" do
+          CDNConnect::APIClient.any_instance.stub(:delete_object) { Response.new }
+          expect { CDN::CommunicationSystem.delete(uuid: "non_existing_uuid") }.to raise_error( Exceptions::CdnUnknownException, "cdn communication system failed" )
         end
 
       end

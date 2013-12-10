@@ -26,3 +26,9 @@ class Photo < Image
   include ImageSystem::Image
 
 end
+
+class Response
+  def status
+    nil
+  end
+end

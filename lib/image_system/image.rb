@@ -10,6 +10,17 @@ module ImageSystem
         end
         super
       rescue Exceptions::CdnUploadException => e
+        # should log the problem
+        return false
+      end
+    end
+
+    def destroy
+      begin
+        response = self.new_record? ? true : CDN::CommunicationSystem.delete(uuid: self.uuid)
+        super if response
+      rescue Exceptions::CdnUnknownException => e
+        # should log the problem
         return false
       end
     end
