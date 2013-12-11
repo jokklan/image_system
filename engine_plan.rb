@@ -8,6 +8,10 @@ ENGINE_ROOT = File.expand_path(Dir.pwd)
 ENGINE_PATH = File.expand_path('lib/image_system/engine', ENGINE_ROOT)
 
 class EnginePlan < Zeus::Rails
+  def test
+    Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+    super
+  end
 end
 
 Zeus.plan = EnginePlan.new
