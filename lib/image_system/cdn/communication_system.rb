@@ -13,14 +13,7 @@ module ImageSystem
         options = set_upload_options(uuid, options)
         response = api_client.upload(options)
 
-        # should look for the status from the message instead
-        begin
-          if response.data["results"]["files"].size == 1
-            true
-          end
-        rescue
-          raise Exceptions::CdnUploadException.new("failed to upload")
-        end
+        error_handling(response.status)
       end
 
       def self.download(options = {})
@@ -62,7 +55,7 @@ module ImageSystem
       end
 
       def self.default_upload_options
-        { destination_path: '/' }
+        { destination_path: '/', queue_processing: false }
       end
 
       def self.default_download_options
@@ -92,12 +85,15 @@ module ImageSystem
       end
 
       def self.error_handling(status)
-        if status == 200
+        case status
+        when 200
           true
-        elsif status == 404
-          raise Exceptions::NotFoundException.new("Does not exist any image with that uuid")
-        elsif status == 400
+        when 400
           raise Exceptions::AlreadyExistsException.new("There is an image with the same uuid as the new one")
+        when 404
+          raise Exceptions::NotFoundException.new("Does not exist any image with that uuid")
+        when 503
+          raise Exceptions::CdnResponseException.new("http_response was nil")
         else
           raise Exceptions::CdnUnknownException.new("cdn communication system failed")
         end

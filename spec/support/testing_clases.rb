@@ -28,7 +28,11 @@ class Photo < Image
 end
 
 class Response
-  def status
-    nil
+
+  attr_accessor :status
+
+  def initialize(**args)
+    self.status = args[:status]
   end
+
 end

@@ -44,21 +44,18 @@ module ImageSystem
 
         it "receives a file and uploads it to cdn" do
           res = CDN::CommunicationSystem.upload( uuid: @uuid_to_upload,
-                                                 source_file_path: @file_path,
-                                                 queue_processing: false)
+                                                 source_file_path: @file_path)
           expect(res).to eq(true)
         end
 
         it "returns an error message if uuid is nil" do
           expect { CDN::CommunicationSystem.upload( uuid: nil,
-                                                    source_file_path: @file_path,
-                                                    queue_processing: false) }.to raise_error(ArgumentError, "uuid is not set")
+                                                    source_file_path: @file_path) }.to raise_error(ArgumentError, "uuid is not set")
         end
 
         it "returns an error message if source_file_path is not set" do
           expect { CDN::CommunicationSystem.upload( uuid: @uuid_to_upload,
-                                                    source_file_path: nil,
-                                                    queue_processing: false) }.to raise_error(ArgumentError, "source file(s) required")
+                                                    source_file_path: nil) }.to raise_error(ArgumentError, "source file(s) required")
         end
 
         it "returns an error message for missing uuid if no arguments are set" do
@@ -66,10 +63,9 @@ module ImageSystem
         end
 
         it "returns an error message if the upload fails from cdn" do
-          CDNConnect::APIClient.any_instance.stub(:upload) { [] }
+          CDNConnect::APIClient.any_instance.stub(:upload) { Response.new(:status => 503) }
           expect { CDN::CommunicationSystem.upload( uuid: @uuid_to_upload,
-                                                    source_file_path: @file_path,
-                                                    queue_processing: false) }.to raise_error(Exceptions::CdnUploadException, "failed to upload")
+                                                    source_file_path: @file_path) }.to raise_error(Exceptions::CdnResponseException, "http_response was nil")
         end
 
       end

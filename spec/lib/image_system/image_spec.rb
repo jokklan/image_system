@@ -18,9 +18,21 @@ module ImageSystem
         p.save
       end
 
-      it "does not save an image that is new and has not been uploaded successfully" do
+      it "does not save an image that is new and has not received a response from cdn" do
         Photo.any_instance.stub(:new_record?) { true }
-        CDN::CommunicationSystem.stub(:upload).and_raise(Exceptions::CdnUploadException.new("failed to upload"))
+        CDN::CommunicationSystem.stub(:upload).and_raise(Exceptions::CdnResponseException.new("http_response was nil"))
+
+        p = Photo.new(uuid: UUIDTools::UUID.random_create.to_s.gsub(/\-/, ''), path: "#{Rails.root}/public/images/test_image.jpg")
+
+        CDN::CommunicationSystem.should_receive(:upload)
+        p.should_not_receive(:super_save_is_called)
+
+        p.save
+      end
+
+      it "does not save an image that is new and has not been uploaded successfully for unknown reasons" do
+        Photo.any_instance.stub(:new_record?) { true }
+        CDN::CommunicationSystem.stub(:upload).and_raise(Exceptions::CdnUnknownException.new("cdn communication system failed"))
 
         p = Photo.new(uuid: UUIDTools::UUID.random_create.to_s.gsub(/\-/, ''), path: "#{Rails.root}/public/images/test_image.jpg")
 
@@ -83,7 +95,7 @@ module ImageSystem
 
       end
 
-      it  "does not delete an image if there is an error from the server" do
+      it  "does not delete an image if there is an unknown error from the server" do
         Photo.any_instance.stub(:new_record?) { false }
         CDN::CommunicationSystem.stub(:delete).and_raise(Exceptions::CdnUnknownException.new("cdn communication system failed"))
 
@@ -95,6 +107,17 @@ module ImageSystem
         p.destroy
       end
 
+      it  "does not delete an image if there no response from the server" do
+        Photo.any_instance.stub(:new_record?) { false }
+        CDN::CommunicationSystem.stub(:delete).and_raise(Exceptions::CdnResponseException.new("http_response was nil"))
+
+        p = Photo.new(uuid: UUIDTools::UUID.random_create.to_s.gsub(/\-/, ''))
+
+        CDN::CommunicationSystem.should_receive(:delete)
+        p.should_not_receive(:super_destroy_is_called)
+
+        p.destroy
+      end
     end
 
     describe "#url" do

@@ -4,29 +4,37 @@ module ImageSystem
     attr_accessor :path
 
     def save
-      begin
+      rescue_from_cdn_failure do
         if self.new_record? || self.changed.include?("uuid")
           CDN::CommunicationSystem.upload(uuid: self.uuid, source_file_path: self.path, queue_processing: false)
         end
         super
-      rescue Exceptions::CdnUploadException => e
-        # should log the problem
-        return false
       end
     end
 
     def destroy
-      begin
+      rescue_from_cdn_failure do
         response = self.new_record? ? true : CDN::CommunicationSystem.delete(uuid: self.uuid)
         super if response
-      rescue Exceptions::CdnUnknownException => e
-        # should log the problem
-        return false
       end
     end
 
     def url
       self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid)
+    end
+
+    private
+
+    def rescue_from_cdn_failure(&block)
+      begin
+        block.call
+      rescue Exceptions::CdnResponseException => e
+        # should log the problem
+        return false
+      rescue Exceptions::CdnUnknownException => e
+        # should log the problem
+        return false
+      end
     end
 
   end
