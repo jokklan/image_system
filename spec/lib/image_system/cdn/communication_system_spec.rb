@@ -7,44 +7,47 @@ module ImageSystem
     describe CDN::CommunicationSystem do
 
       before(:all) do
+        VCR.use_cassette('image_system/cdn/communication_system_upload/before_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
+          file_args = { filename: 'rails.png',
+                          content_type: 'image/png',
+                          tempfile: File.new("#{Rails.root}/public/images/test_image.jpg")
+                        }
 
-        file_args = { filename: 'rails.png',
-                        content_type: 'image/png',
-                        tempfile: File.new("#{Rails.root}/public/images/test_image.jpg")
-                      }
+          @file_path = ActionDispatch::Http::UploadedFile.new(file_args).path.to_s
+          @uuid = "1"
 
-        @file_path = ActionDispatch::Http::UploadedFile.new(file_args).path.to_s
-        @uuid = "1"
+          @cdn ||= CDNConnect::APIClient.new( app_host: CDN::ApiData::CDN_APP_HOST,
+                                              api_key: CDN::ApiData::CDN_API_KEY)
 
-        @cdn ||= CDNConnect::APIClient.new( app_host: CDN::ApiData::CDN_APP_HOST,
-                                            api_key: CDN::ApiData::CDN_API_KEY)
+          res = @cdn.upload( source_file_path: @file_path,
+                             destination_file_name: "#{@uuid}.jpg",
+                             queue_processing: false,
+                             destination_path: '/')
 
-        res = @cdn.upload( source_file_path: @file_path,
-                           destination_file_name: "#{@uuid}.jpg",
-                           queue_processing: false,
-                           destination_path: '/')
-
-        @already_existing_uuid = 'rename_test_already_exists_exception'
-        @cdn.upload( source_file_path: @file_path,
-                     destination_file_name: "#{@already_existing_uuid}.jpg",
-                     queue_processing: false,
-                     destination_path: '/')
+          @already_existing_uuid = 'rename_test_already_exists_exception'
+          @cdn.upload( source_file_path: @file_path,
+                       destination_file_name: "#{@already_existing_uuid}.jpg",
+                       queue_processing: false,
+                       destination_path: '/')
+        end
       end
 
       after(:all) do
-        @cdn.delete(uuid: @uuid)
-        @cdn.delete(uuid: @already_existing_uuid)
+        VCR.use_cassette('image_system/cdn/communication_system_upload/after_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
+          @cdn.delete(uuid: @uuid)
+          @cdn.delete(uuid: @already_existing_uuid)
+        end
       end
 
-      describe ".upload" do
+      describe ".upload", :focus do
 
         before(:all) do
           @uuid_to_upload = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
         end
 
-        it "receives a file and uploads it to cdn" do
+        it "receives a file and uploads it to cdn", :vcr, match_requests_on: [:method, :uri_ignoring_trailing_nonce] do
           res = CDN::CommunicationSystem.upload( uuid: @uuid_to_upload,
-                                                 source_file_path: @file_path)
+                                                   source_file_path: @file_path)
           expect(res).to eq(true)
         end
 
