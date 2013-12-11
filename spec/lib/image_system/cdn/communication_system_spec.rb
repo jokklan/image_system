@@ -39,7 +39,7 @@ module ImageSystem
         end
       end
 
-      describe ".upload", :focus do
+      describe ".upload" do
 
         before(:all) do
           @uuid_to_upload = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
@@ -126,28 +126,32 @@ module ImageSystem
 
       end
 
-      describe ".rename" do
+      describe ".rename", :focus do
 
         before(:all) do
-          @old_uuid = "1"
-          @new_uuid = "new_uuid"
+          VCR.use_cassette('image_system/cdn/communication_system_rename/before_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
+            @old_uuid = "1"
+            @new_uuid = "new_uuid"
+          end
         end
 
         after(:each) do
-          @cdn.rename_object(path: "/#{@new_uuid}.jpg", new_name: "#{@old_uuid}.jpg")
+          VCR.use_cassette('image_system/cdn/communication_system_rename/after_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
+            @cdn.rename_object(path: "/#{@new_uuid}.jpg", new_name: "#{@old_uuid}.jpg")
+          end
         end
 
-        it "returns true when renaming an object is successful" do
+        it "returns true when renaming an object is successful", :vcr do
           res = CDN::CommunicationSystem.rename(old_uuid: @old_uuid, new_uuid: @new_uuid)
           expect(res).to eq(true)
         end
 
-        it "returns an exception if an object is not found" do
+        it "returns an exception if an object is not found", :vcr do
           expect { CDN::CommunicationSystem.rename( old_uuid: "2",
                                                     new_uuid: @new_uuid) }.to raise_error(Exceptions::NotFoundException, "Does not exist any image with that uuid")
         end
 
-        it "returns an exception if there is an image with the same uuid as new uuid" do
+        it "returns an exception if there is an image with the same uuid as new uuid", :vcr do
           expect { CDN::CommunicationSystem.rename( old_uuid: @old_uuid,
                                                     new_uuid: @already_existing_uuid) }.to raise_error(Exceptions::AlreadyExistsException, "There is an image with the same uuid as the new one")
         end
