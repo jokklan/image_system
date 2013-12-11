@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/non_existing_uuid.jpg.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - cdnconnect-api-ruby v0.4.1
+      Authorization:
+      - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
+      Cache-Control:
+      - no-store
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 11 Dec 2013 16:25:30 GMT
+      Server:
+      - Google Frontend
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"results":{},"msgs":[{"status":"error","text":"Invalid uri"}]}'
+    http_version: 
+  recorded_at: Wed, 11 Dec 2013 16:25:31 GMT
+recorded_with: VCR 2.8.0

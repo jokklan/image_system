@@ -126,7 +126,7 @@ module ImageSystem
 
       end
 
-      describe ".rename", :focus do
+      describe ".rename" do
 
         before(:all) do
           VCR.use_cassette('image_system/cdn/communication_system_rename/before_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
@@ -179,7 +179,7 @@ module ImageSystem
 
       describe ".delete" do
 
-        it "deletes the picture and returns true if the given uuid exists" do
+        it "deletes the picture and returns true if the given uuid exists", :vcr, match_requests_on: [:method, :uri_ignoring_trailing_nonce] do
           res = CDN::CommunicationSystem.delete(uuid: @already_existing_uuid)
           expect(res).to eq(true)
 
@@ -190,7 +190,7 @@ module ImageSystem
                        destination_path: '/')
         end
 
-        it "does not delete if it does exist and returns an error" do
+        it "does not delete if it does exist and returns an error", :vcr do
           expect { CDN::CommunicationSystem.delete(uuid: "non_existing_uuid") }.to raise_error(Exceptions::NotFoundException, "Does not exist any image with that uuid")
         end
 

@@ -4,6 +4,7 @@ VCR.configure do |c|
   #c.debug_logger = STDOUT
   c.cassette_library_dir = 'vcr_cassettes'
   c.hook_into :webmock
+  c.ignore_hosts 'codeclimate.com'
 
   c.register_request_matcher :uri_ignoring_trailing_nonce do |request_1, request_2|
     uri1, uri2 = request_1.uri, request_2.uri
