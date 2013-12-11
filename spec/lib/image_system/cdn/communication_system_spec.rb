@@ -31,6 +31,11 @@ module ImageSystem
                      destination_path: '/')
       end
 
+      after(:all) do
+        @cdn.delete(uuid: @uuid)
+        @cdn.delete(uuid: @already_existing_uuid)
+      end
+
       describe ".upload" do
 
         before(:all) do
@@ -47,24 +52,24 @@ module ImageSystem
         it "returns an error message if uuid is nil" do
           expect { CDN::CommunicationSystem.upload( uuid: nil,
                                                     source_file_path: @file_path,
-                                                    queue_processing: false) }.to raise_error( ArgumentError, "uuid is not set" )
+                                                    queue_processing: false) }.to raise_error(ArgumentError, "uuid is not set")
         end
 
         it "returns an error message if source_file_path is not set" do
           expect { CDN::CommunicationSystem.upload( uuid: @uuid_to_upload,
                                                     source_file_path: nil,
-                                                    queue_processing: false) }.to raise_error( ArgumentError, "source file(s) required" )
+                                                    queue_processing: false) }.to raise_error(ArgumentError, "source file(s) required")
         end
 
         it "returns an error message for missing uuid if no arguments are set" do
-          expect { CDN::CommunicationSystem.upload() }.to raise_error( ArgumentError, "uuid is not set" )
+          expect { CDN::CommunicationSystem.upload }.to raise_error(ArgumentError, "uuid is not set")
         end
 
         it "returns an error message if the upload fails from cdn" do
           CDNConnect::APIClient.any_instance.stub(:upload) { [] }
           expect { CDN::CommunicationSystem.upload( uuid: @uuid_to_upload,
                                                     source_file_path: @file_path,
-                                                    queue_processing: false)}.to raise_error( Exceptions::CdnUploadException, "failed to upload" )
+                                                    queue_processing: false) }.to raise_error(Exceptions::CdnUploadException, "failed to upload")
         end
 
       end
@@ -134,22 +139,22 @@ module ImageSystem
         end
 
         it "returns true when renaming an object is successful" do
-          res = CDN::CommunicationSystem.rename(old_uuid: @old_uuid, new_uuid: @new_uuid )
+          res = CDN::CommunicationSystem.rename(old_uuid: @old_uuid, new_uuid: @new_uuid)
           expect(res).to eq(true)
         end
 
         it "returns an exception if an object is not found" do
           expect { CDN::CommunicationSystem.rename( old_uuid: "2",
-                                                    new_uuid: @new_uuid ) }.to raise_error( Exceptions::NotFoundException, "Does not exist any image with that uuid" )
+                                                    new_uuid: @new_uuid) }.to raise_error(Exceptions::NotFoundException, "Does not exist any image with that uuid")
         end
 
         it "returns an exception if there is an image with the same uuid as new uuid" do
           expect { CDN::CommunicationSystem.rename( old_uuid: @old_uuid,
-                                                    new_uuid: @already_existing_uuid ) }.to raise_error(Exceptions::AlreadyExistsException, "There is an image with the same uuid as the new one")
+                                                    new_uuid: @already_existing_uuid) }.to raise_error(Exceptions::AlreadyExistsException, "There is an image with the same uuid as the new one")
         end
 
         it "returns an error if the old uuid is not provided" do
-          expect { CDN::CommunicationSystem.rename( new_uuid: @already_existing_uuid ) }.to raise_error(ArgumentError,"old uuid is not set")
+          expect { CDN::CommunicationSystem.rename( new_uuid: @already_existing_uuid) }.to raise_error(ArgumentError,"old uuid is not set")
         end
 
         it "returns an error if the new uuid is not provided" do
@@ -169,7 +174,7 @@ module ImageSystem
           res = CDN::CommunicationSystem.delete(uuid: @already_existing_uuid)
           expect(res).to eq(true)
 
-          # for the file not disapear to others tests
+          # Make sure the file does not disappear for other tests
           @cdn.upload( source_file_path: @file_path,
                        destination_file_name: "#{@already_existing_uuid}.jpg",
                        queue_processing: false,
