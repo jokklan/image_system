@@ -1,7 +1,7 @@
 module ImageSystem
   module Image
 
-    attr_accessor :uuid, :path
+    attr_accessor :path
 
     def self.included(base)
       base.class_eval do
@@ -26,7 +26,7 @@ module ImageSystem
     end
 
     def url
-      self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid)
+      self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid, height: self.height, width: self.width)
     end
 
     private

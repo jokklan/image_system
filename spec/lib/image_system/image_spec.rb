@@ -1,6 +1,4 @@
-# encoding: utf-8
 require 'spec_helper'
-
 
 module ImageSystem
 
@@ -123,7 +121,6 @@ module ImageSystem
       it "returns an url to the image with the given uuid" do
         Photo.any_instance.stub(:new_record?) { false }
         CDN::CommunicationSystem.should_receive(:download)
-
         photo.url
       end
 
