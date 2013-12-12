@@ -1,7 +1,13 @@
 module ImageSystem
   module Image
 
-    attr_accessor :path
+    attr_accessor :uuid, :path
+
+    def self.included(base)
+      base.class_eval do
+        validates_presence_of :uuid
+      end
+    end
 
     def save
       rescue_from_cdn_failure do

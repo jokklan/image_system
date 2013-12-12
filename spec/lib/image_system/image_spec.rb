@@ -8,6 +8,18 @@ module ImageSystem
 
     let(:photo) { Photo.new(uuid: create_uuid, path: test_image_path) }
 
+    describe "#validations" do
+      it "does not save an image without the presence of uuid" do
+        invalid_photo = Photo.new( path: test_image_path)
+        expect(invalid_photo).to_not be_valid
+      end
+
+      it "does not save an image without the presence of uuid" do
+        valid_photo = Photo.new( uuid: create_uuid )
+        expect(valid_photo).to be_valid
+      end
+    end
+
     describe "#save" do
 
       it "saves an image that is new and has been uploaded successfully" do
