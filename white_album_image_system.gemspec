@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0.2"
   s.add_dependency "cdnconnect-api"
   s.add_dependency "uuidtools"
+  s.add_dependency "generator_spec"
 end

@@ -1,5 +1,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 
+require "generator_spec"
+
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 
 # Checks for pending migrations before tests are run.
