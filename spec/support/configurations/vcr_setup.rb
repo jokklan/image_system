@@ -2,7 +2,7 @@ require 'vcr'
 
 VCR.configure do |c|
   #c.debug_logger = STDOUT
-  c.cassette_library_dir = 'vcr_cassettes'
+  c.cassette_library_dir = File.expand_path("../../../vcr_cassettes", __FILE__)
   c.hook_into :webmock
   c.ignore_hosts 'codeclimate.com'
 
