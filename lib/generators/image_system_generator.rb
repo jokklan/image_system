@@ -1,3 +1,4 @@
+require 'rails/generators'
 require 'rails/generators/active_record'
 
 module Generators
@@ -16,13 +17,19 @@ module Generators
 
     def create_migrations
       if model_exists?
-        migration_template 'add_cdn_fields_to_image.rb', "db/migrate/add_cdn_fields_to_#{class_name.pluralize}"
+        path = migration_path("add_cdn_fields_to_#{class_name.pluralize}")
+        migration_template 'add_cdn_fields_to_image.rb', path unless migration_exists?(path)
       else
-        migration_template 'create_image_with_cdn_fields.rb', "db/migrate/create_#{class_name.pluralize}_with_cdn_fields"
+        path = migration_path("create_#{class_name.pluralize}_with_cdn_fields")
+        migration_template 'create_image_with_cdn_fields.rb', path unless migration_exists?(path)
       end
     end
 
     private
+
+    def migration_path(name)
+      @migration_path = File.join("db", "migrate", "#{name}.rb")
+    end
 
     def model_path
       @model_path ||= File.join("app", "models", "#{class_name}.rb")
@@ -30,6 +37,10 @@ module Generators
 
     def model_exists?
       File.exists?(File.join(Rails.root, model_path))
+    end
+
+    def migration_exists?(path)
+      File.exists?(File.join(Rails.root, path))
     end
 
   end
