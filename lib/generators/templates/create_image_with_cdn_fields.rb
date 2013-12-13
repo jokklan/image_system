@@ -1,9 +1,11 @@
-class AddCdnFieldsToImage < ActiveRecord::Migration
+class CreateImageWithCdnFields < ActiveRecord::Migration
   def change
-    change_table(:<%= class_name.pluralize %>) do |t|
+    create_table(:<%= class_name.pluralize %>) do |t|
       t.string  :uuid
       t.integer :width  # width in px
       t.integer :height # height in px
+
+      t.timestamps
     end
 
     add_index :<%= class_name.pluralize %>, :uuid, :unique => true
