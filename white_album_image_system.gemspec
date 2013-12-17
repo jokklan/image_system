@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files      = Dir["{app,config,db,lib}/**/*", "Rakefile"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.0.1"
+  s.add_dependency "rails", "~> 4.0.2"
   s.add_dependency "cdnconnect-api"
   s.add_dependency "uuidtools"
 end
