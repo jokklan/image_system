@@ -25,10 +25,10 @@ module Generators
       end
     end
 
-    private
+  private
 
     def migration_path(name)
-      @migration_path = File.join("db", "migrate", "#{name}.rb")
+      File.join("db", "migrate", "#{name}.rb")
     end
 
     def model_path
