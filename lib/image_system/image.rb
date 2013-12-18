@@ -5,7 +5,7 @@ module ImageSystem
 
     def self.included(base)
       base.class_eval do
-        validates_presence_of :uuid
+        validates :uuid, presence: true
       end
     end
 
