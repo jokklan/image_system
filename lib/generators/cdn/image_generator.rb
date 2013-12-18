@@ -1,9 +1,11 @@
 require 'rails/generators'
 require 'rails/generators/active_record'
 
-module Generators
-  class ImageSystemGenerator < Rails::Generators::Base
+module Cdn
+  class ImageGenerator < Rails::Generators::Base
     include Rails::Generators::Migration
+
+    desc "Adds the necessary fields to the CLASS_NAME table in order to work as a CDN image"
 
     argument :class_name, :type => :string
 
@@ -12,8 +14,6 @@ module Generators
     def self.next_migration_number(path)
       ActiveRecord::Generators::Base.next_migration_number(path)
     end
-
-    desc "creates a migration to add uuid to the image table"
 
     def create_migrations
       if model_exists?

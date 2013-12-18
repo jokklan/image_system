@@ -1,10 +1,10 @@
 require 'spec_helper'
-require "generators/image_system_generator"
+require "generators/cdn/image_generator"
 require "generator_spec"
 
-module Generators
+module Cdn
 
-  describe ImageSystemGenerator do
+  describe ImageGenerator do
     destination File.expand_path("../../tmp", __FILE__)
 
     before(:all) do
