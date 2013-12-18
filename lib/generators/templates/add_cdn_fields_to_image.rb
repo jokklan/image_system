@@ -6,6 +6,6 @@ class AddCdnFieldsToImage < ActiveRecord::Migration
       t.integer :height # height in px
     end
 
-    add_index :<%= class_name.pluralize %>, :uuid, :unique => true
+    add_index :<%= class_name.pluralize %>, :uuid, unique: true
   end
 end

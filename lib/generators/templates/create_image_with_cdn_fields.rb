@@ -8,6 +8,6 @@ class CreateImageWithCdnFields < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :<%= class_name.pluralize %>, :uuid, :unique => true
+    add_index :<%= class_name.pluralize %>, :uuid, unique: true
   end
 end
