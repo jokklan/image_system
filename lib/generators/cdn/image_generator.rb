@@ -17,11 +17,11 @@ module Cdn
 
     def create_migrations
       if model_exists?
-        path = migration_path("add_cdn_fields_to_#{class_name.pluralize}")
-        migration_template 'add_cdn_fields_to_image.rb', path unless migration_exists?(path)
+        path = migration_path("add_cdn_fields_to_#{class_name.pluralize.downcase}")
+        migration_template 'add_cdn_fields_to_images.rb', path unless migration_exists?(path)
       else
-        path = migration_path("create_#{class_name.pluralize}_with_cdn_fields")
-        migration_template 'create_image_with_cdn_fields.rb', path unless migration_exists?(path)
+        path = migration_path("create_#{class_name.pluralize.downcase}_with_cdn_fields")
+        migration_template 'create_images_with_cdn_fields.rb', path unless migration_exists?(path)
       end
     end
 
@@ -36,11 +36,11 @@ module Cdn
     end
 
     def model_exists?
-      File.exists?(File.join(Rails.root, model_path))
+      File.exists?(File.join(destination_root, model_path))
     end
 
     def migration_exists?(path)
-      File.exists?(File.join(Rails.root, path))
+      File.exists?(File.join(destination_root, path))
     end
 
   end

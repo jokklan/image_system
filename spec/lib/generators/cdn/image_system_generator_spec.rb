@@ -14,7 +14,7 @@ module Cdn
 
     context "When the model exists" do
       before(:each) do
-        @args = File.join(Rails.root, File.join("app", "models", "picture.rb"))
+        @args = File.join(File.expand_path("../../tmp", __FILE__), File.join("app", "models", "picture.rb"))
         allow(File).to receive(:exists?).with(@args).and_return(true) { File.unstub(:exists?) }
         run_generator %w(picture)
       end
