@@ -3,6 +3,12 @@ module ImageSystem
 
     attr_accessor :path
 
+    def self.included(base)
+      base.class_eval do
+        validates :uuid, presence: true
+      end
+    end
+
     def save
       rescue_from_cdn_failure do
         if self.new_record? || self.changed.include?("uuid")
@@ -20,7 +26,7 @@ module ImageSystem
     end
 
     def url
-      self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid)
+      self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid, height: self.height, width: self.width)
     end
 
     private

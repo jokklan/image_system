@@ -21,7 +21,7 @@ module ImageSystem
         raise ArgumentError.new("uuid is not set") if uuid.blank?
 
         options = default_download_options.merge(options)
-        params = set_aspect_options(options).to_param
+        params = set_aspect_options(options).delete_if { |k, v| v.nil? }.to_param
 
         url = "http://#{CDN::ApiData::CDN_APP_HOST}/#{uuid}.jpg"
         url = url + "?#{params}" unless params.empty?

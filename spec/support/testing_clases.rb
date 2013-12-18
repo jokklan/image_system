@@ -1,11 +1,5 @@
 class Image
 
-  attr_accessor :uuid
-
-  def initialize(**args)
-    self.uuid = args[:uuid]
-  end
-
   def save
     super_save_is_called
   end
@@ -23,7 +17,17 @@ class Image
 end
 
 class Photo < Image
+  include ActiveModel::Validations
   include ImageSystem::Image
+
+  attr_accessor :uuid, :width, :height
+
+  def initialize(**args)
+    self.uuid = args[:uuid]
+    self.path = args[:path]
+    self.width = args[:width]
+    self.height = args[:height]
+  end
 
 end
 

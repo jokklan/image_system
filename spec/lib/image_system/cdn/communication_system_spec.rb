@@ -104,6 +104,12 @@ module ImageSystem
           expect(res).to include("width=320")
         end
 
+        it "returns an image with no pre-defined heigth or width is values are set as nil" do
+          res = CDN::CommunicationSystem.download(uuid: @uuid, height: nil, width: nil)
+          expect(res).to_not include("height")
+          expect(res).to_not include("width")
+        end
+
         it "returns an image with a certain quality if set" do
           res = CDN::CommunicationSystem.download(uuid: @uuid, height: 640, width: 320, quality: 10)
           expect(res).to include("quality=10")

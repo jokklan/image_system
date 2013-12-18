@@ -1,12 +1,22 @@
-# encoding: utf-8
 require 'spec_helper'
-
 
 module ImageSystem
 
   describe "Image" do
 
     let(:photo) { Photo.new(uuid: create_uuid, path: test_image_path) }
+
+    describe "#validations" do
+      it "does not save an image without the presence of uuid" do
+        invalid_photo = Photo.new( path: test_image_path)
+        expect(invalid_photo).to_not be_valid
+      end
+
+      it "does not save an image without the presence of uuid" do
+        valid_photo = Photo.new( uuid: create_uuid )
+        expect(valid_photo).to be_valid
+      end
+    end
 
     describe "#save" do
 
@@ -111,7 +121,6 @@ module ImageSystem
       it "returns an url to the image with the given uuid" do
         Photo.any_instance.stub(:new_record?) { false }
         CDN::CommunicationSystem.should_receive(:download)
-
         photo.url
       end
 
