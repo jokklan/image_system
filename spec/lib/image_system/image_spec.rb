@@ -5,6 +5,7 @@ module ImageSystem
   describe "Image" do
 
     let(:photo) { Photo.new(uuid: create_uuid, path: test_image_path) }
+    let(:new_photo) { Photo.new() }
 
     describe "#validations" do
       it "does not save an image without the presence of uuid" do
@@ -129,6 +130,25 @@ module ImageSystem
         CDN::CommunicationSystem.should_not_receive(:download)
 
         photo.url
+      end
+    end
+
+    describe "after_create" do
+      it "sets uuid if is not set" do
+        Photo.any_instance.stub(:new_record?) { true }
+        CDN::CommunicationSystem.should_receive(:upload)
+        new_photo.save
+        expect(new_photo.uuid).to_not be_nil
+        expect(new_photo).to be_valid
+      end
+
+      it "if uuid has been set, should set another one." do
+        Photo.any_instance.stub(:new_record?) { true }
+        CDN::CommunicationSystem.should_receive(:upload)
+        uuid = photo.uuid
+        photo.save
+        expect(photo.uuid).to_not eq(uuid)
+        expect(photo).to be_valid
       end
     end
 

@@ -1,3 +1,5 @@
+require 'uuidtools'
+
 module ImageSystem
   module Image
 
@@ -6,6 +8,7 @@ module ImageSystem
     def self.included(base)
       base.class_eval do
         validates :uuid, presence: true
+        before_validation :set_uuid, on: :create
       end
     end
 
@@ -29,7 +32,7 @@ module ImageSystem
       self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid, height: self.height, width: self.width)
     end
 
-    private
+  private
 
     def rescue_from_cdn_failure(&block)
       begin
@@ -41,6 +44,10 @@ module ImageSystem
         # should log the problem
         return false
       end
+    end
+
+    def set_uuid
+      self.uuid = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
     end
 
   end

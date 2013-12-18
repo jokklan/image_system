@@ -18,6 +18,7 @@ end
 
 class Photo < Image
   include ActiveModel::Validations
+  include ActiveRecord::Callbacks
   include ImageSystem::Image
 
   attr_accessor :uuid, :width, :height
@@ -27,6 +28,12 @@ class Photo < Image
     self.path = args[:path]
     self.width = args[:width]
     self.height = args[:height]
+  end
+
+  def save
+    #run before_create methods
+    send(:set_uuid)
+    super
   end
 
 end
