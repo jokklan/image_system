@@ -1,4 +1,4 @@
-class Image
+class SuperClassTestImage
 
   def save
     super_save_is_called
@@ -16,7 +16,7 @@ class Image
 
 end
 
-class Photo < Image
+class Photo < SuperClassTestImage
   include ActiveModel::Validations
   include ActiveRecord::Callbacks
   include ImageSystem::Image
