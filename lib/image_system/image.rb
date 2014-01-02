@@ -29,6 +29,12 @@ module ImageSystem
     end
 
     def url
+      begin
+         res = CDN::CommunicationSystem.info(uuid: self.uuid)
+      rescue Exceptions::NotFoundException => e
+         return nil
+      end
+
       self.new_record? ? nil : CDN::CommunicationSystem.download(uuid: self.uuid, height: self.height, width: self.width)
     end
 
