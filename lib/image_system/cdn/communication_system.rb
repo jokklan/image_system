@@ -48,7 +48,15 @@ module ImageSystem
         error_handling(response.status)
       end
 
-      private
+      def self.info(options = {})
+        uuid = options.delete(:uuid)
+        raise ArgumentError.new("uuid is not set") if uuid.blank?
+
+        response = api_client.get_object(path: "/#{uuid}.jpg")
+        error_handling(response.status)
+      end
+
+    private
 
       def self.api_client
         @cdn ||= CDNConnect::APIClient.new(app_host: CDN::ApiData::CDN_APP_HOST, api_key: CDN::ApiData::CDN_API_KEY )
