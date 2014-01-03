@@ -1,4 +1,4 @@
-class Create<%= class_name.slice(0,1).capitalize + class_name.pluralize.slice(1..-1) %>WithCdnFields < ActiveRecord::Migration
+class Create<%= class_name.camelize.pluralize %>WithCdnFields < ActiveRecord::Migration
   def change
     create_table(:<%= class_name.pluralize.downcase %>) do |t|
       t.string  :uuid
