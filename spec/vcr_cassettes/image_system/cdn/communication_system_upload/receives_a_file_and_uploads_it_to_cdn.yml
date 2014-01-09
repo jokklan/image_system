@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/upload-3105152.json
+    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/upload-6820489.json
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -31,19 +31,19 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 15:38:02 GMT
+      - Thu, 09 Jan 2014 14:59:39 GMT
       Server:
       - Google Frontend
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{"upload_url":"https://api.cdnconnect.com/_ah/upload/AMmfu6b_d4UmBZCn0Kp2HLN75V0vgkdiwtFwT3bVstY69yg7bjkTTVK3RRBqa800pAlHnnq47TsWVbiEyUmDkrREWanBYt_x_UV-9q_JPTdTstN0SiqBe6uv2K86WRNAhAHn4eIl4QEx5zA-LJcD3_Hk75JB47u0fzVZNjmAWXEPNbNRaTcuxbsijonzIhxGBPRKvkm2C5owi4bKjtt0hcUR07frskm8joqAiJ2ouELyjVzb_-YIdTM4ve1yok9WErZpXHpU18kdLQjBKWL35nBIFxSIeLqh4Lm3qySVf7df7P3CbrcKdSqD0wJDfiPP5-F1d6M24AN-zYH3YbeSO8CjGO53jz6xCaZTO7scoiVd7RXbPf_KZ1k/ALBNUaYAAAAAUqiJMnNhVyZ47RgiTjbqXs9RcIF2vM9s/","upload_id":"3105152","app_id":"dj3bhE6kK1GYY7V","obj_id":"tW8KTTBQdD2C"},"msgs":[]}'
+      string: '{"results":{"upload_url":"https://api.cdnconnect.com/_ah/upload/AMmfu6bFCdDmmvN5t4GD_joF8cBM5H719-_fcbHhqtTdV7eSVCmbdolIydf8ewdOzy6zrn_XFNFTO9czeqXBm2GfnWyPdHUBKFPARBuwM3Jw7WAXRLTSDTOokAua_q1Ks3LovVGjioNb-2gU2SOkPTYo6wrm3OjvXMILOpWYHyigbjZECcurz7GlD2Fo-ABEB4L4_O2MntsgmOVhKYr0HYPSxXTDBi8XuBZ10qUjASxxg5krEaNp_sy6-pDfUZYEtOi5vOk2Le45oV8YG7j9Jh0J2NQlBrlnEHyQ_56v-fbuEdV2S7bqgml30YqixmJ7eDRvQVUUrdOxb_qx49GWWDzJRTY37abg8Vv_RsqvVzEP8lQbimdd1rU/ALBNUaYAAAAAUs67s5lUYXtgn-pVOElxoa_aZcq1Vgbb/","upload_id":"6820489","app_id":"dj3bhE6kK1GYY7V","obj_id":"tW8KTTBQdD2C"},"msgs":[]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 15:38:02 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:39 GMT
 - request:
     method: post
-    uri: https://api.cdnconnect.com/_ah/upload/AMmfu6b_d4UmBZCn0Kp2HLN75V0vgkdiwtFwT3bVstY69yg7bjkTTVK3RRBqa800pAlHnnq47TsWVbiEyUmDkrREWanBYt_x_UV-9q_JPTdTstN0SiqBe6uv2K86WRNAhAHn4eIl4QEx5zA-LJcD3_Hk75JB47u0fzVZNjmAWXEPNbNRaTcuxbsijonzIhxGBPRKvkm2C5owi4bKjtt0hcUR07frskm8joqAiJ2ouELyjVzb_-YIdTM4ve1yok9WErZpXHpU18kdLQjBKWL35nBIFxSIeLqh4Lm3qySVf7df7P3CbrcKdSqD0wJDfiPP5-F1d6M24AN-zYH3YbeSO8CjGO53jz6xCaZTO7scoiVd7RXbPf_KZ1k/ALBNUaYAAAAAUqiJMnNhVyZ47RgiTjbqXs9RcIF2vM9s/
+    uri: https://api.cdnconnect.com/_ah/upload/AMmfu6bFCdDmmvN5t4GD_joF8cBM5H719-_fcbHhqtTdV7eSVCmbdolIydf8ewdOzy6zrn_XFNFTO9czeqXBm2GfnWyPdHUBKFPARBuwM3Jw7WAXRLTSDTOokAua_q1Ks3LovVGjioNb-2gU2SOkPTYo6wrm3OjvXMILOpWYHyigbjZECcurz7GlD2Fo-ABEB4L4_O2MntsgmOVhKYr0HYPSxXTDBi8XuBZ10qUjASxxg5krEaNp_sy6-pDfUZYEtOi5vOk2Le45oV8YG7j9Jh0J2NQlBrlnEHyQ_56v-fbuEdV2S7bqgml30YqixmJ7eDRvQVUUrdOxb_qx49GWWDzJRTY37abg8Vv_RsqvVzEP8lQbimdd1rU/ALBNUaYAAAAAUs67s5lUYXtgn-pVOElxoa_aZcq1Vgbb/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -51,8 +51,8 @@ http_interactions:
         c2l0aW9uOiBmb3JtLWRhdGE7IG5hbWU9ImNyZWF0ZV91cGxvYWRfdXJsIg0K
         DQp0cnVlDQotLS0tLS0tLS0tLS0tUnVieU11bHRpcGFydFBvc3QNCkNvbnRl
         bnQtRGlzcG9zaXRpb246IGZvcm0tZGF0YTsgbmFtZT0iZGVzdGluYXRpb25f
-        ZmlsZV9uYW1lIg0KDQo5OTNjN2ZjM2I1ODQ0YmY0OGU1ZWFiMDk3NWRkMDRk
-        Ni5qcGcNCi0tLS0tLS0tLS0tLS1SdWJ5TXVsdGlwYXJ0UG9zdA0KQ29udGVu
+        ZmlsZV9uYW1lIg0KDQphZDEyNTZmZWMwYmQ0MmIxYmEyMmI2ZDkyOGUzNjI5
+        Zi5qcGcNCi0tLS0tLS0tLS0tLS1SdWJ5TXVsdGlwYXJ0UG9zdA0KQ29udGVu
         dC1EaXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlW10iOyBmaWxl
         bmFtZT0idGVzdF9pbWFnZS5qcGciDQpDb250ZW50LUxlbmd0aDogMzM0OTcy
         DQpDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL29jdGV0LXN0cmVhbQ0KQ29u
@@ -7504,7 +7504,7 @@ http_interactions:
         TXVsdGlwYXJ0UG9zdC0tDQoNCg==
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Content-Type:
       - multipart/form-data; boundary=-----------RubyMultipartPost
       Content-Length:
@@ -7525,22 +7525,22 @@ http_interactions:
       X-Appengine-Estimated-Cpm-Us-Dollars:
       - $0.000064
       X-Appengine-Resource-Usage:
-      - ms=1130 cpu_ms=64
+      - ms=894 cpu_ms=28
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 15:38:06 GMT
+      - Thu, 09 Jan 2014 14:59:43 GMT
       Pragma:
       - no-cache
       Expires:
       - Fri, 01 Jan 1990 00:00:00 GMT
       Server:
-      - HTTP Upload Server Built on Nov 27 2013 15:50:01 (1385596201)
+      - HTTP Upload Server Built on Jan 1 2014 15:49:23 (1388620163)
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{"files":[{"status":1,"opt_st":null,"name":"993c7fc3b5844bf48e5eab0975dd04d6.jpg","msgs":[],"width":998,"file_name":"993c7fc3b5844bf48e5eab0975dd04d6","created":"2013-12-11T07:38Z","modified":"2013-12-11T15:38Z","org_size":null,"height":1500,"parent_id":"tW8KTTBQdD2C","ext":"jpg","trans_file_size":0,"org_type":null,"trans_count":0,"rev_id":"i26sJJlqOhoO4U","type":"image/jpeg","id":"mc4hZl1ZORm6M","upload_success":true,"size":334972}],"upload_id":"3105152"},"msgs":[]}'
+      string: '{"results":{"files":[{"status":1,"opt_st":null,"name":"ad1256fec0bd42b1ba22b6d928e3629f.jpg","msgs":[],"width":998,"file_name":"ad1256fec0bd42b1ba22b6d928e3629f","created":"2014-01-09T06:59Z","modified":"2014-01-09T14:59Z","org_size":null,"height":1500,"parent_id":"tW8KTTBQdD2C","ext":"jpg","trans_file_size":0,"org_type":null,"trans_count":0,"rev_id":"cm4eeh2uu8V36A","type":"image/jpeg","id":"aI638P2lLlQ4F","upload_success":true,"size":334972}],"upload_id":"6820489"},"msgs":[]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 15:38:06 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:43 GMT
 recorded_with: VCR 2.8.0

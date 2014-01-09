@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/new_uuid.jpg/rename.json
+    method: delete
+    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/new_uuid.jpg.json
     body:
-      encoding: US-ASCII
-      string: new_name=1.jpg
+      encoding: UTF-8
+      string: ''
     headers:
       User-Agent:
       - cdnconnect-api-ruby v0.4.2
@@ -38,7 +38,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{},"msgs":[{"status":"error","text":"Obj cannot be found"}]}'
+      string: '{"results":{},"msgs":[{"status":"error","text":"Invalid uri"}]}'
     http_version: 
   recorded_at: Thu, 09 Jan 2014 14:59:36 GMT
 recorded_with: VCR 2.8.0

@@ -4,11 +4,11 @@ http_interactions:
     method: put
     uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/1.jpg/rename.json
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: new_name=rename_test_already_exists_exception.jpg
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -31,7 +31,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 16:22:45 GMT
+      - Thu, 09 Jan 2014 14:59:37 GMT
       Server:
       - Google Frontend
       Transfer-Encoding:
@@ -41,5 +41,5 @@ http_interactions:
       string: '{"results":{},"msgs":[{"status":"error","text":"File name already exists
         within this folder"}]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 16:22:45 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:37 GMT
 recorded_with: VCR 2.8.0

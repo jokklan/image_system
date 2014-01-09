@@ -4,7 +4,7 @@ http_interactions:
     method: get
     uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/non_existing_uuid.jpg.json
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
@@ -31,15 +31,15 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Thu, 02 Jan 2014 16:22:29 GMT
+      - Thu, 09 Jan 2014 14:59:30 GMT
       Server:
       - Google Frontend
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{"app":{"domain":"cdnconnect.com","bytes_transferred":62478889121,"original_file_size":333326585951,"percent_cache_hits":"91.2","noncache_hits":377219,"folder_count":0,"file_size":325837395467,"id":"dj3bhE6kK1GYY7V","hits":4278125,"ssl_url":null,"custom_domain":false,"cache_hits":3900906,"hostname":"benjamin.cdnconnect.com","uri":"http://benjamin.cdnconnect.com/","trans_file_size":55572512126,"label":"benjamin","percent_noncache_hits":"8.8","file_count":635424,"root_folder_id":"tW8KTTBQdD2C","subdomain":"benjamin","trans_count":3015274}},"msgs":[{"status":"error","text":"Invalid
+      string: '{"results":{"app":{"domain":"cdnconnect.com","bytes_transferred":91683410158,"original_file_size":334168898015,"percent_cache_hits":"90.4","noncache_hits":615894,"folder_count":0,"file_size":326583987055,"id":"dj3bhE6kK1GYY7V","hits":6411466,"ssl_url":null,"custom_domain":false,"cache_hits":5795572,"hostname":"benjamin.cdnconnect.com","uri":"http://benjamin.cdnconnect.com/","trans_file_size":56092694219,"label":"benjamin","percent_noncache_hits":"9.6","file_count":636570,"root_folder_id":"tW8KTTBQdD2C","subdomain":"benjamin","trans_count":3043404}},"msgs":[{"status":"error","text":"Invalid
         uri"}]}'
     http_version: 
-  recorded_at: Thu, 02 Jan 2014 16:22:29 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:30 GMT
 recorded_with: VCR 2.8.0
