@@ -1,4 +1,4 @@
-guard :rspec, cmd: 'zeus rspec', keep: true do
+guard :rspec, cmd: 'rspec', keep: true do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }

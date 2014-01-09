@@ -136,8 +136,6 @@ GEM
     webmock (1.15.2)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
-    zeus (0.13.3)
-      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -156,4 +154,3 @@ DEPENDENCIES
   sqlite3
   vcr
   webmock (~> 1.15.2)
-  zeus

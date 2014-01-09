@@ -13,9 +13,6 @@ group :development, :test do
 
   # Use debugger
   gem "debugger"
-
-  # Speed up common command line tasks with Zeus
-  gem "zeus", require: false
 end
 
 group :test do
