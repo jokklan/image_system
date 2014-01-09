@@ -21,7 +21,6 @@ log
 
 spec/tmp/*
 **/spec/tmp/*
-**/spec/dummy
 
 
 # Zeus files
