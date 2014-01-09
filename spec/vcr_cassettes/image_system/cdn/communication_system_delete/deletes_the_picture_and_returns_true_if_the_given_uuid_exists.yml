@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -31,25 +31,25 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 16:25:25 GMT
+      - Thu, 09 Jan 2014 14:59:31 GMT
       Server:
       - Google Frontend
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{"deleted":{"status":-1,"opt_st":null,"name":"rename_test_already_exists_exception.jpg","width":998,"file_name":"rename_test_already_exists_exception","created":"2013-12-11T08:23Z","modified":"2013-12-11T16:23Z","org_size":null,"height":1500,"parent_id":"tW8KTTBQdD2C","ext":"jpg","trans_file_size":0,"org_type":null,"trans_count":0,"rev_id":"h92jpJ9Qt2Qn8T","type":"image/jpeg","id":"ci5zUo2R6Me5M","size":334972}},"msgs":[]}'
+      string: '{"results":{"deleted":{"file_name":"rename_test_already_exists_exception","height":1500,"id":"xj1QfbHpboy9W","size":334972,"parent_id":"tW8KTTBQdD2C","folders_limit":null,"trans_file_size":0,"width":998,"trans_count":0,"files_offset":null,"type":"image/jpeg","folders_offset":null,"rev_id":"qS3LW8BozAJt7X","status":-1,"files_limit":null,"opt_st":null,"name":"rename_test_already_exists_exception.jpg","created":"2014-01-09T06:52Z","modified":"2014-01-09T14:52Z","org_size":null,"org_type":null,"ext":"jpg"}},"msgs":[]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 16:25:25 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:31 GMT
 - request:
     method: get
-    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/upload-3930015.json
+    uri: https://api.cdnconnect.com/v1/benjamin.cdnconnect.com/upload-5327043.json
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -72,19 +72,19 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 16:25:26 GMT
+      - Thu, 09 Jan 2014 14:59:32 GMT
       Server:
       - Google Frontend
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{"upload_url":"https://api.cdnconnect.com/_ah/upload/AMmfu6YyT0F_ghVAyckrJtTimIWmh9jDallFhy_uuIFz7VDWFbiG1x9nOwjnnqkjoOtxrGuMHFS7yFSBbxlgbY7MMx2rzJICnZWQi8_VzIt9NGw1Pp_QKjIi8gq_Q-zODHTYhbbsKeVvpkhDPCD08sKTE8I6vL1_7zqqGZiOo4rG0cg8dXi3ZMeV1jEB12tDRy_SLEqowZE2xjrKSfzTrkNgNy5mI1olJ-cOHETNLCEYhyQ06CW0lCQnBhL4wG4Oh3_607dyOQgN4jHgOhThTeDq4iCKz2nv8KyCAmLWQ2WN1bNy5vZxbAZp7YeX2A2pL1Sy8oKlYrarageiAAi9iXoe9HlE4qjlksXyOhSNqyvXjIYGLnAvKm0/ALBNUaYAAAAAUqiUTaAcD2ZVT9Cr2gmfs1nyrkn1Mm11/","upload_id":"3930015","app_id":"dj3bhE6kK1GYY7V","obj_id":"tW8KTTBQdD2C"},"msgs":[]}'
+      string: '{"results":{"upload_url":"https://api.cdnconnect.com/_ah/upload/AMmfu6Z6lT5BIdaY8jQWqpX5uWr97Hmi73U6pL9h5N79QL4Ho9velbth0TXVO5-fkBh6gsmvYysuybA0ypoYY9PSlV_OjT7fN8FH3q-UsB5OdjIyEiBfPmxUVj9F0wTXE9qeUCK0iIgT5qkC8uQ3W5dU2k8aRmrLbaDEwOEM9oF-0j1csNsn9quJsvAuvmA9dKYh7aQxhQ-d4FOg0DAjx7L4WTOrXr9HrRAkMPii0UYn0ua64Q_5tWdnvferswKyhVJR-AllGekYxE2kA2FhA0DGJ4IxmfwTqSYMCvDqFyoei3uENbNY4-A8lt9_TgmaXCtARy8kag1cylmDEH2U06gzBw1SfeEYgH3NzLFEBAsKaSe_MpLzfAA/ALBNUaYAAAAAUs67q5eMqVk6kI4TlwnsDqdcck9Y1S7F/","upload_id":"5327043","app_id":"dj3bhE6kK1GYY7V","obj_id":"tW8KTTBQdD2C"},"msgs":[]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 16:25:26 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:32 GMT
 - request:
     method: post
-    uri: https://api.cdnconnect.com/_ah/upload/AMmfu6YyT0F_ghVAyckrJtTimIWmh9jDallFhy_uuIFz7VDWFbiG1x9nOwjnnqkjoOtxrGuMHFS7yFSBbxlgbY7MMx2rzJICnZWQi8_VzIt9NGw1Pp_QKjIi8gq_Q-zODHTYhbbsKeVvpkhDPCD08sKTE8I6vL1_7zqqGZiOo4rG0cg8dXi3ZMeV1jEB12tDRy_SLEqowZE2xjrKSfzTrkNgNy5mI1olJ-cOHETNLCEYhyQ06CW0lCQnBhL4wG4Oh3_607dyOQgN4jHgOhThTeDq4iCKz2nv8KyCAmLWQ2WN1bNy5vZxbAZp7YeX2A2pL1Sy8oKlYrarageiAAi9iXoe9HlE4qjlksXyOhSNqyvXjIYGLnAvKm0/ALBNUaYAAAAAUqiUTaAcD2ZVT9Cr2gmfs1nyrkn1Mm11/
+    uri: https://api.cdnconnect.com/_ah/upload/AMmfu6Z6lT5BIdaY8jQWqpX5uWr97Hmi73U6pL9h5N79QL4Ho9velbth0TXVO5-fkBh6gsmvYysuybA0ypoYY9PSlV_OjT7fN8FH3q-UsB5OdjIyEiBfPmxUVj9F0wTXE9qeUCK0iIgT5qkC8uQ3W5dU2k8aRmrLbaDEwOEM9oF-0j1csNsn9quJsvAuvmA9dKYh7aQxhQ-d4FOg0DAjx7L4WTOrXr9HrRAkMPii0UYn0ua64Q_5tWdnvferswKyhVJR-AllGekYxE2kA2FhA0DGJ4IxmfwTqSYMCvDqFyoei3uENbNY4-A8lt9_TgmaXCtARy8kag1cylmDEH2U06gzBw1SfeEYgH3NzLFEBAsKaSe_MpLzfAA/ALBNUaYAAAAAUs67q5eMqVk6kI4TlwnsDqdcck9Y1S7F/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -7545,7 +7545,7 @@ http_interactions:
         UnVieU11bHRpcGFydFBvc3QtLQ0KDQo=
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Content-Type:
       - multipart/form-data; boundary=-----------RubyMultipartPost
       Content-Length:
@@ -7566,22 +7566,22 @@ http_interactions:
       X-Appengine-Estimated-Cpm-Us-Dollars:
       - $0.000065
       X-Appengine-Resource-Usage:
-      - ms=847 cpu_ms=160
+      - ms=865 cpu_ms=28
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 16:25:30 GMT
+      - Thu, 09 Jan 2014 14:59:35 GMT
       Pragma:
       - no-cache
       Expires:
       - Fri, 01 Jan 1990 00:00:00 GMT
       Server:
-      - HTTP Upload Server Built on Nov 27 2013 15:50:01 (1385596201)
+      - HTTP Upload Server Built on Jan 1 2014 15:49:23 (1388620163)
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"results":{"files":[{"status":1,"opt_st":null,"name":"rename_test_already_exists_exception.jpg","msgs":[],"width":998,"file_name":"rename_test_already_exists_exception","created":"2013-12-11T08:25Z","modified":"2013-12-11T16:25Z","org_size":null,"height":1500,"parent_id":"tW8KTTBQdD2C","ext":"jpg","trans_file_size":0,"org_type":null,"trans_count":0,"rev_id":"nY3123ACKYew7L","type":"image/jpeg","id":"rf2usootOLU8A","upload_success":true,"size":334972}],"upload_id":"3930015"},"msgs":[]}'
+      string: '{"results":{"files":[{"status":1,"opt_st":null,"name":"rename_test_already_exists_exception.jpg","msgs":[],"width":998,"file_name":"rename_test_already_exists_exception","created":"2014-01-09T06:59Z","modified":"2014-01-09T14:59Z","org_size":null,"height":1500,"parent_id":"tW8KTTBQdD2C","ext":"jpg","trans_file_size":0,"org_type":null,"trans_count":0,"rev_id":"wI2GsCagPJzh8I","type":"image/jpeg","id":"er6Ys8C63I84B","upload_success":true,"size":334972}],"upload_id":"5327043"},"msgs":[]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 16:25:30 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:35 GMT
 recorded_with: VCR 2.8.0

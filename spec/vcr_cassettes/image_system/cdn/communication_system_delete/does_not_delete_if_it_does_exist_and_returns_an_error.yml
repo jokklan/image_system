@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -31,7 +31,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Wed, 11 Dec 2013 16:25:30 GMT
+      - Thu, 09 Jan 2014 14:59:30 GMT
       Server:
       - Google Frontend
       Transfer-Encoding:
@@ -40,5 +40,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"results":{},"msgs":[{"status":"error","text":"Invalid uri"}]}'
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 16:25:31 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:30 GMT
 recorded_with: VCR 2.8.0

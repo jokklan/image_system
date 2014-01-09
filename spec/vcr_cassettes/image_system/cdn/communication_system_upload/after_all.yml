@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -29,7 +29,7 @@ http_interactions:
       Cache-Control:
       - no-cache
       Date:
-      - Wed, 11 Dec 2013 15:58:47 GMT
+      - Thu, 09 Jan 2014 14:59:43 GMT
       Server:
       - Google Frontend
       Content-Length:
@@ -38,7 +38,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 15:58:47 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:43 GMT
 - request:
     method: delete
     uri: https://api.cdnconnect.com/v1%7B:uuid=%3E%22rename_test_already_exists_exception%22%7D
@@ -47,7 +47,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - cdnconnect-api-ruby v0.4.1
+      - cdnconnect-api-ruby v0.4.2
       Authorization:
       - Bearer 1JQAmdOFpjLRq0P4qeYRRz79wOcjpkeKEiTa4GfHJ
       Cache-Control:
@@ -68,7 +68,7 @@ http_interactions:
       Cache-Control:
       - no-cache
       Date:
-      - Wed, 11 Dec 2013 15:58:48 GMT
+      - Thu, 09 Jan 2014 14:59:44 GMT
       Server:
       - Google Frontend
       Content-Length:
@@ -77,5 +77,5 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Wed, 11 Dec 2013 15:58:48 GMT
+  recorded_at: Thu, 09 Jan 2014 14:59:44 GMT
 recorded_with: VCR 2.8.0
