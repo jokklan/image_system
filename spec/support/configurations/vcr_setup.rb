@@ -1,5 +1,4 @@
 require 'vcr'
-require "rspec"
 
 VCR.configure do |c|
   #c.debug_logger = STDOUT

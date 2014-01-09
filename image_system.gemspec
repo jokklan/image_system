@@ -21,15 +21,27 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  # allows to communicate with the cdn image system API
   s.add_dependency "cdnconnect-api"
+
+  # allows the creation of long ids for the images
   s.add_dependency "uuidtools"
+
+  # rails interface to databases, allows to use validations and callbacks
   s.add_dependency "activerecord"
+
+  # adds methods to test generators with rspec
   s.add_development_dependency "generator_spec"
+
+  # testing framework
   s.add_development_dependency "rspec"
-  s.add_development_dependency "factory_girl"
-  s.add_development_dependency "database_cleaner"
-  s.add_development_dependency "shoulda-matchers"
+
+  # records webservice calls, making tests faster.
   s.add_development_dependency "vcr"
+
+  # vcr depends on it to record the calls and block calls that do not use vcr
   s.add_development_dependency "webmock",'~> 1.15.2'
+
+  # the dummie app needs a database configuration.
   s.add_development_dependency "sqlite3"
 end

@@ -4,7 +4,6 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
-
   # Use guard for automated testing
   gem "guard-rspec", require: false
 
@@ -16,8 +15,6 @@ group :development, :test do
 end
 
 group :test do
-
   # Adding code coverage support with code climate
   gem "codeclimate-test-reporter", require: false
-
 end
