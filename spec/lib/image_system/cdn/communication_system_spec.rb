@@ -4,6 +4,8 @@ require 'cdnconnect_api'
 
 describe ImageSystem::CDN::CommunicationSystem do
 
+  subject { ImageSystem::CDN::CommunicationSystem }
+
   before(:all) do
     VCR.use_cassette('image_system/cdn/communication_system_upload/before_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
       file_args = { filename: 'rails.png',
@@ -27,8 +29,6 @@ describe ImageSystem::CDN::CommunicationSystem do
                    destination_file_name: "#{@already_existing_uuid}.jpg",
                    queue_processing: false,
                    destination_path: '/')
-
-      subject { ImageSystem::CDN::CommunicationSystem }
     end
   end
 
@@ -134,6 +134,7 @@ describe ImageSystem::CDN::CommunicationSystem do
       VCR.use_cassette('image_system/cdn/communication_system_rename/before_all', :match_requests_on => [:method, :uri_ignoring_trailing_nonce]) do
         @old_uuid = "1"
         @new_uuid = "new_uuid"
+        @cdn.delete_object(path: "/#{@new_uuid}.jpg")
       end
     end
 
@@ -144,8 +145,8 @@ describe ImageSystem::CDN::CommunicationSystem do
     end
 
     it "returns true when renaming an object is successful", :vcr do
-      #res = subject.rename(old_uuid: @old_uuid, new_uuid: @new_uuid)
-      #expect(res).to eq(true)
+      res = subject.rename(old_uuid: @old_uuid, new_uuid: @new_uuid)
+      expect(res).to eq(true)
     end
 
     it "returns an exception if an object is not found", :vcr do
