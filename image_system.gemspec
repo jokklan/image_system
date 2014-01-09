@@ -21,8 +21,9 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_development_dependency "cdnconnect-api"
-  s.add_development_dependency "uuidtools"
+  s.add_dependency "cdnconnect-api"
+  s.add_dependency "uuidtools"
+  s.add_dependency "activerecord"
   s.add_development_dependency "generator_spec"
   s.add_development_dependency "rspec"
   s.add_development_dependency "factory_girl"
@@ -30,4 +31,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "shoulda-matchers"
   s.add_development_dependency "vcr"
   s.add_development_dependency "webmock",'~> 1.15.2'
+  s.add_development_dependency "sqlite3"
 end
