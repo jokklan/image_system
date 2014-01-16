@@ -25,7 +25,7 @@ class Photo < SuperClassTestImage
 
   def initialize(**args)
     self.uuid = args[:uuid]
-    self.path = args[:path]
+    self.source_file_path = args[:source_file_path]
     self.width = args[:width]
     self.height = args[:height]
   end

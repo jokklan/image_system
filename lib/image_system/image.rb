@@ -3,11 +3,12 @@ require 'uuidtools'
 module ImageSystem
   module Image
 
-    attr_accessor :path
+    attr_accessor :source_file_path
 
     def self.included(base)
       base.class_eval do
         validates :uuid, presence: true
+        validates :source_file_path, presence: true
         before_validation :set_uuid, on: :create
         around_save :upload_to_system
       end
@@ -51,7 +52,7 @@ module ImageSystem
     def upload_to_system
       rescue_from_cdn_failure do
         if self.new_record? || self.changed.include?("uuid")
-          CDN::CommunicationSystem.upload(uuid: self.uuid, source_file_path: self.path, queue_processing: false)
+          CDN::CommunicationSystem.upload(uuid: self.uuid, source_file_path: self.source_file_path, queue_processing: false)
         end
         yield
       end
