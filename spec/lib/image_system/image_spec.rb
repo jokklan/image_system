@@ -9,13 +9,32 @@ module ImageSystem
 
     describe "#validations" do
       it "does not save an image without the presence of uuid" do
-        #invalid_photo = Photo.new( path: test_image_path)
-        #expect(invalid_photo).to_not be_valid
+        invalid_photo = Photo.new( path: test_image_path)
+        expect(invalid_photo).to_not be_valid
       end
 
       it "saves an image without the presence of uuid" do
         valid_photo = Photo.new( uuid: create_uuid )
         expect(valid_photo).to be_valid
+      end
+    end
+
+    describe "around_save" do
+      it "sets uuid if is not set" do
+        Photo.any_instance.stub(:new_record?) { true }
+        CDN::CommunicationSystem.should_receive(:upload)
+        new_photo.save
+        expect(new_photo.uuid).to_not be_nil
+        expect(new_photo).to be_valid
+      end
+
+      it "if uuid has been set, should set another one." do
+        Photo.any_instance.stub(:new_record?) { true }
+        CDN::CommunicationSystem.should_receive(:upload)
+        uuid = photo.uuid
+        photo.save
+        expect(photo.uuid).to_not eq(uuid)
+        expect(photo).to be_valid
       end
     end
 
@@ -136,25 +155,6 @@ module ImageSystem
         Photo.any_instance.stub(:new_record?) { false }
         CDN::CommunicationSystem.stub(:info).with({ uuid: new_photo.uuid }).and_raise(Exceptions::NotFoundException.new("Does not exist any image with that uuid"))
         expect(new_photo.url).to be_nil
-      end
-    end
-
-    describe "after_create" do
-      it "sets uuid if is not set" do
-        Photo.any_instance.stub(:new_record?) { true }
-        CDN::CommunicationSystem.should_receive(:upload)
-        new_photo.save
-        expect(new_photo.uuid).to_not be_nil
-        expect(new_photo).to be_valid
-      end
-
-      it "if uuid has been set, should set another one." do
-        Photo.any_instance.stub(:new_record?) { true }
-        CDN::CommunicationSystem.should_receive(:upload)
-        uuid = photo.uuid
-        photo.save
-        expect(photo.uuid).to_not eq(uuid)
-        expect(photo).to be_valid
       end
     end
 
