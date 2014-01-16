@@ -33,7 +33,8 @@ class Photo < SuperClassTestImage
   def save
     #run before_create methods
     send(:set_uuid)
-    super
+    #run around_save
+    send(:upload_to_system) { super }
   end
 
 end

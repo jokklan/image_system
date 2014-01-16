@@ -9,15 +9,7 @@ module ImageSystem
       base.class_eval do
         validates :uuid, presence: true
         before_validation :set_uuid, on: :create
-      end
-    end
-
-    def save
-      rescue_from_cdn_failure do
-        if self.new_record? || self.changed.include?("uuid")
-          CDN::CommunicationSystem.upload(uuid: self.uuid, source_file_path: self.path, queue_processing: false)
-        end
-        super
+        around_save :upload_to_system
       end
     end
 
@@ -30,8 +22,8 @@ module ImageSystem
 
     def url
       begin
-         res = CDN::CommunicationSystem.info(uuid: self.uuid)
-      rescue Exceptions::NotFoundException => e
+         CDN::CommunicationSystem.info(uuid: self.uuid)
+      rescue Exceptions::NotFoundException
          return nil
       end
 
@@ -54,6 +46,15 @@ module ImageSystem
 
     def set_uuid
       self.uuid = UUIDTools::UUID.random_create.to_s.gsub(/\-/, '')
+    end
+
+    def upload_to_system
+      rescue_from_cdn_failure do
+        if self.new_record? || self.changed.include?("uuid")
+          CDN::CommunicationSystem.upload(uuid: self.uuid, source_file_path: self.path, queue_processing: false)
+        end
+        yield
+      end
     end
 
   end
