@@ -4,17 +4,22 @@ module ImageSystem
 
   describe "Image" do
 
-    let(:photo) { Photo.new(uuid: create_uuid, path: test_image_path) }
-    let(:new_photo) { Photo.new(uuid: create_uuid) }
+    let(:photo) { Photo.new(uuid: create_uuid, source_file_path: test_image_path) }
+    let(:new_photo) { Photo.new(source_file_path: test_image_path) }
 
     describe "#validations" do
       it "does not save an image without the presence of uuid" do
-        invalid_photo = Photo.new( path: test_image_path)
+        invalid_photo = Photo.new(source_file_path: test_image_path)
         expect(invalid_photo).to_not be_valid
       end
 
-      it "saves an image without the presence of uuid" do
-        valid_photo = Photo.new( uuid: create_uuid )
+      it "does not save an image without the presence of source_file_path" do
+        invalid_photo = Photo.new(uuid: create_uuid)
+        expect(invalid_photo).to_not be_valid
+      end
+
+      it "saves an image if uuid and source_file_path is present" do
+        valid_photo = Photo.new(uuid: create_uuid, source_file_path: test_image_path)
         expect(valid_photo).to be_valid
       end
     end
